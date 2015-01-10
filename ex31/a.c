@@ -7,42 +7,54 @@ struct node {
   struct node *nextptr;
 };
 
-struct node *readList();
-void printList(struct node *lptr);
+void add_to_array(int value);
+void display_array(struct node *lptr);
+
+struct node *list;
 
 int main()
 {
-  struct node *list;
-  list = readList();
-  printList(list);
-  return 0;
-}
 
-struct node *readList() {
-  struct node *nptr,*aptr,*lptr;
-  int num;
-  printf("Enter a value :");
-  scanf("%d",&num);
-  if (num == -1)
-    return NULL;
-    else {
-      lptr = malloc(sizeof(struct node));
-      (*lptr).data = num;
-      aptr = lptr;
-      scanf("%d",&num);
-      while (num != -1) {
-        nptr = malloc(sizeof(struct node));
-        (*nptr).data = num;
-        (*aptr).nextptr = nptr;
-        aptr = nptr;
-        scanf("%d",&num);
-      }
-      (*aptr).nextptr = NULL;
-      return lptr;
+  int value;
+  bool stop = false;
+
+  while (!stop) {
+    printf("Enter a value :");
+    scanf("%d", &value);
+    if ( value != -1 ){
+      add_to_array(value);
+    }else{
+      stop = true;
     }
   }
 
-void printList(struct node *lptr) {
+  display_array(list);
+
+  return 0;
+}
+
+void add_to_array(int value){
+  struct node *nptr, *pptr;
+  if (list == NULL){
+    nptr = malloc(sizeof(struct node));
+    (*nptr).data = value;
+    (*nptr).nextptr = NULL;
+    list = nptr;
+  }else{
+    pptr = NULL;
+    nptr = list;
+    while( nptr != NULL ){
+      pptr = nptr;
+      nptr = (*nptr).nextptr;
+    }
+    nptr = malloc(sizeof(struct node));
+    (*nptr).data = value;
+    (*nptr).nextptr = NULL;
+    (*pptr).nextptr = nptr;
+  }
+};
+
+void display_array(struct node *lptr) {
   int i = 0;
   while (lptr!=NULL) {
     printf("list[%d]: %d\n", i, (*lptr).data);

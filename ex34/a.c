@@ -48,14 +48,23 @@ void add_to_array(char word[10]){
       pptr = nptr;
       nptr = (*nptr).nextptr;
     }
-    newptr = malloc(sizeof(struct node));
-    strcpy((*newptr).data, word);
-    if (pptr == NULL){
-      list = newptr;
+    if( (nptr == NULL) || ( strncmp(word, (*nptr).data, 10) != 0 ) ){
+      newptr = malloc(sizeof(struct node));
+      strcpy((*newptr).data, word);
+      if (pptr == NULL){
+        list = newptr;
+      }else{
+        (*pptr).nextptr = newptr;
+      }
+      (*newptr).nextptr = nptr;
     }else{
-      (*pptr).nextptr = newptr;
+      if (pptr == NULL){
+        list = (*nptr).nextptr;
+      }else{
+        (*pptr).nextptr = (*nptr).nextptr;
+      }
+      free(nptr);
     }
-    (*newptr).nextptr = nptr;
   }
 };
 
