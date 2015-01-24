@@ -12,10 +12,12 @@ int main(int argc, char **argv)
       printf("File could not be opened\n");
     }
     else {
-      char ch;
-      printf("The contents of %s file are :\n", argv[1]);
-      while( ( ch = fgetc(f) ) != EOF ) {
-        printf("%c",ch);
+      int numb, nb_result;
+      while (!feof(f)) {
+        nb_result = fscanf(f,"%d", &numb);
+        if (nb_result > 0) {
+          printf("%d\n", (numb * numb));
+        }
       }
       fclose(f);
     }

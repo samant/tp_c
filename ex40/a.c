@@ -1,27 +1,38 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 
-int main(int argc, char **argv)
+void add_to_file(char word[20]);
+
+char filename[20] = "test.txt";
+
+int main()
 {
 
-  if (argc >= 2) {
+  char word[20];
+  bool stop = false;
 
-    FILE *f;
-    f = fopen(argv[1],"r");
-
-    if (f == NULL){
-      printf("File could not be opened\n");
-    }
-    else {
-      int numb, nb_result;
-      while (!feof(f)) {
-        nb_result = fscanf(f,"%d", &numb);
-        if (nb_result > 0) {
-          printf("%d\n", (numb * numb));
-        }
-      }
-      fclose(f);
+  while (!stop) {
+    printf("Enter a word :");
+    scanf("%s", word);
+    if ( strncmp(word, "quit", 10) != 0 ){
+      add_to_file(word);
+    }else{
+      stop = true;
     }
   }
 
   return 0;
+}
+
+void add_to_file(char word[20]){
+  FILE *f;
+  f = fopen(filename,"a");
+  if (f == NULL){
+    printf("File could not be opened\n");
+  }
+  else {
+    fprintf(f, "%s\n", word);
+    fclose(f);
+  }
 }
