@@ -10,7 +10,7 @@ int main()
   printf("x: %d\n", x);
   printf("*xptr: %d\n", *xptr);
   printf("Increment\n");
-  *xptr = *xptr + 5;
+  *xptr = (*xptr) + 5;
   printf("x: %d\n", x);
   printf("*xptr: %d\n", *xptr);
 

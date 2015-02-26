@@ -27,5 +27,5 @@ void change_sign_by_value(int i){
 }
 
 void change_sign_by_address(int *i){
-  *i = -*i;
+  *i = -(*i);
 }
